@@ -1,0 +1,29 @@
+Options -indexes
+
+<IfModule mod_headers.c>
+   Header set Access-Control-Allow-Origin "*"
+	 Header set Access-Control-Allow-Headers "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+	 Header set Access-Control-Allow-Methods "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	# RewriteBase /api/
+
+	# Allow any files or directories that exist to be displayed directly
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+
+	# Rewrite all other URLs to index.php/URL
+	RewriteRule ^(.*)$ index.php/$1 [L]
+
+	#Rewrite anchor directories to index.php/URL even though they exist.
+	#Don't rewrite files so that we can still load CSS, etc.
+	RewriteCond %{REQUEST_FILENAME} -f
+	RewriteRule .* - [S=5]
+
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+	ErrorDocument 404 index.php
+</IfModule>
