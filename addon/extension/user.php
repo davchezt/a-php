@@ -59,6 +59,16 @@ class User implements ExtensionInterface {
         return $petugas;
     }
 
+    public function getDataCount($type)
+    {
+        SQL::open();
+        $dbq = SQL::$db->query("SELECT COUNT(*) FROM `user` WHERE `type` = '$type'");
+        SQL::close();
+        $count = $dbq->fetchColumn();
+
+        return $count;
+    }
+
     public function get($id)
     {
         SQL::open();
