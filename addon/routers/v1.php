@@ -119,8 +119,47 @@ $router->match('POST|GET', '/v1/user/activate', function() use ($templates) {
 $router->match('POST|GET', '/v1/user/login', function() use ($templates) {
     echo $templates->render('v1/user-login');
 });
+$router->match('POST|GET', '/v1/user/login-adm', function() use ($templates) {
+    echo $templates->render('v1/admin-login');
+});
 $router->match('POST|GET', '/v1/user/token', function() use ($templates) {
     echo $templates->render('v1/user-token');
+});
+//// Daftar berdasarkan
+$router->match('POST|GET', '/v1/user/agronomis', function() use ($templates) {
+    echo $templates->render('v1/user-agronomis');
+});
+$router->match('POST|GET', '/v1/user/agronomis/(:num)/(:num)', function($offset, $limit) use ($templates) {
+	$info = array(
+		'offset' 	=> $offset,
+		'limit' 	=> $limit
+	);
+	$templates->addData($info);
+    echo $templates->render('v1/user-agronomis');
+});
+
+$router->match('POST|GET', '/v1/user/petani', function() use ($templates) {
+    echo $templates->render('v1/user-petani');
+});
+$router->match('POST|GET', '/v1/user/petani/(:num)/(:num)', function($offset, $limit) use ($templates) {
+	$info = array(
+		'offset' 	=> $offset,
+		'limit' 	=> $limit
+	);
+	$templates->addData($info);
+    echo $templates->render('v1/user-petani');
+});
+
+$router->match('POST|GET', '/v1/user/bandar', function() use ($templates) {
+    echo $templates->render('v1/user-bandar');
+});
+$router->match('POST|GET', '/v1/user/bandar/(:num)/(:num)', function($offset, $limit) use ($templates) {
+	$info = array(
+		'offset' 	=> $offset,
+		'limit' 	=> $limit
+	);
+	$templates->addData($info);
+    echo $templates->render('v1/user-bandar');
 });
 /*** TAK PERLU */
 $router->match('POST|GET', '/v1/user/logout', function() use ($templates) {
@@ -163,6 +202,13 @@ $router->match('POST|GET', '/v1/user/(:num)', function($id) use ($templates) {
 	);
 	$templates->addData($info);
 	echo $templates->render('v1/user-id');
+});
+$router->match('POST|GET', '/v1/nama/(:num)', function($id) use ($templates) {
+    $info = array(
+		'id' 	=> $id
+	);
+	$templates->addData($info);
+	echo $templates->render('v1/user-nama');
 });
 $router->match('POST|GET', '/v1/user/(:num)/(:num)', function($offset, $limit) use ($templates) {
     $info = array(
@@ -208,69 +254,4 @@ $router->match('POST|GET', '/v1/kalendar/panen', function() use ($templates) {
 });
 $router->match('POST|GET', '/v1/kalendar/add', function() use ($templates) {
 	echo $templates->render('v1/kalendar-add');
-});
-
-$router->match('GET|OPTIONS', '/v1/token', function() use ($templates) {
-	echo $templates->render('v1/token');
-});
-$router->match('POST|OPTIONS', '/v1/token', function() use ($templates) {
-	echo $templates->render('v1/token');
-});
-$router->match('PUT|OPTIONS', '/v1/token', function() use ($templates) {
-	echo $templates->render('v1/token');
-});
-$router->match('PATCH|OPTIONS', '/v1/token', function() use ($templates) {
-	echo $templates->render('v1/token');
-});
-$router->match('DELETE|OPTIONS', '/v1/token', function() use ($templates) {
-	echo $templates->render('v1/token');
-});
-
-// ADMIN
-$router->match('POST|GET', '/v1/user/login-adm', function() use ($templates) {
-    echo $templates->render('v1/admin-login');
-});
-
-$router->match('POST|GET', '/v1/nama/(:num)', function($id) use ($templates) {
-    $info = array(
-		'id' 	=> $id
-	);
-	$templates->addData($info);
-	echo $templates->render('v1/user-nama');
-});
-
-$router->match('POST|GET', '/v1/user/agronomis', function() use ($templates) {
-    echo $templates->render('v1/user-agronomis');
-});
-$router->match('POST|GET', '/v1/user/agronomis/(:num)/(:num)', function($offset, $limit) use ($templates) {
-	$info = array(
-		'offset' 	=> $offset,
-		'limit' 	=> $limit
-	);
-	$templates->addData($info);
-    echo $templates->render('v1/user-agronomis');
-});
-
-$router->match('POST|GET', '/v1/user/petani', function() use ($templates) {
-    echo $templates->render('v1/user-petani');
-});
-$router->match('POST|GET', '/v1/user/petani/(:num)/(:num)', function($offset, $limit) use ($templates) {
-	$info = array(
-		'offset' 	=> $offset,
-		'limit' 	=> $limit
-	);
-	$templates->addData($info);
-    echo $templates->render('v1/user-petani');
-});
-
-$router->match('POST|GET', '/v1/user/bandar', function() use ($templates) {
-    echo $templates->render('v1/user-bandar');
-});
-$router->match('POST|GET', '/v1/user/bandar/(:num)/(:num)', function($offset, $limit) use ($templates) {
-	$info = array(
-		'offset' 	=> $offset,
-		'limit' 	=> $limit
-	);
-	$templates->addData($info);
-    echo $templates->render('v1/user-bandar');
 });

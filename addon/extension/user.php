@@ -44,8 +44,7 @@ class User implements ExtensionInterface {
         return $petugas;
     }
 
-    public function getData($type, $offset = 0, $limit = 10, $detail = false)
-    {
+    public function getData($type, $offset = 0, $limit = 10, $detail = false) {
         SQL::open();
         $dbo = SQL::$db->prepare("SELECT `id` FROM `user` WHERE `type` = :type ORDER BY `id` ASC LIMIT $offset, $limit");
         if ($detail) {
@@ -57,16 +56,6 @@ class User implements ExtensionInterface {
         $petugas = $dbo->fetchAll(PDO::FETCH_ASSOC);
 
         return $petugas;
-    }
-
-    public function getDataCount($type)
-    {
-        SQL::open();
-        $dbq = SQL::$db->query("SELECT COUNT(*) FROM `user` WHERE `type` = '$type'");
-        SQL::close();
-        $count = $dbq->fetchColumn();
-
-        return $count;
     }
 
     public function get($id)
@@ -91,6 +80,18 @@ class User implements ExtensionInterface {
         $user = $dbo->fetch(PDO::FETCH_OBJ);
         
         return $user ? $user : null;
+    }
+
+    public function getNama($id)
+    {
+        SQL::open();
+        $dbo = SQL::$db->prepare("SELECT `nama` FROM `profile` WHERE `id_user` = :id LIMIT 1");
+        $dbo->bindValue(':id', $id, PDO::PARAM_INT);
+        $dbo->execute();
+        SQL::close();
+        $nama = $dbo->fetchColumn();
+        
+        return $nama ? $nama : null;
     }
 
     public function me()
@@ -442,7 +443,6 @@ class User implements ExtensionInterface {
             $_SESSION['id'] = $userId->fetchColumn();
             $this->id = $_SESSION['id'];
             setcookie("uid", $this->id, time() + (10 * 365 * 24 * 60 * 60));
-            // $this->updateTanggal(timeNow());
             $this->regenerateToken();
             
             return 1;

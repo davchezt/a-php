@@ -1,14 +1,13 @@
 <?php
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Credentials: true');
-header('Access-Control-Allow-Headers: Authorization, Origin, X-Requested-With, Content-Type, Accept');
+header('Access-Control-Allow-Headers: *');
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 	header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE');
 }
 // if (!isset($_POST['name'])) exit;
 header('Content-type: application/json');
 
-/*
+
 if( !function_exists('apache_request_headers') ) {
 function apache_request_headers() {
   $arh = array();
@@ -30,7 +29,7 @@ function apache_request_headers() {
   return( $arh );
 }
 }
-*/
+
 $req = apache_request_headers();
 $requestHeaders = array_combine(array_map('ucwords', array_keys($req)), array_values($req));
 $token = explode(' ', $requestHeaders['Authorization'])[1];
@@ -64,7 +63,7 @@ $jwt_output = array(
 echo json_encode($jwt_output, JSON_PRETTY_PRINT);
 
 function base64url_encode($data) { 
-    return rtrim(strtr(base64_encode($data), '+/', '-_'), '='); 
+  return rtrim(strtr(base64_encode($data), '+/', '-_'), '='); 
 }
 
 /** 

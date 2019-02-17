@@ -1,10 +1,5 @@
 <?php
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Credentials: true');
-header('Access-Control-Allow-Headers: Authorization, Origin, X-Requested-With, Content-Type, Accept');
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-	header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE');
-}
 
 set_time_limit(0);
 define('__AGRIFARM', true);
@@ -25,7 +20,7 @@ include_once __INC . '/functions.php';
 include_once __LIB . '/Page.php';
 include_once __LIB . '/R.php';
 include_once __LIB . '/Image.php';
-include_once __LIB . '/Jwt.php';
+// include_once __INC . '/ses.php';
 include_once __LIB . '/Db.php';
 include_once __LIB . '/Router.php';
 include_once __LIB . '/plates/autoload.php';
@@ -35,14 +30,14 @@ include_once __PATH . '/vendor/autoload.php';
 R::set('config', include_once __PATH . '/configs.php');
 $config = R::get('config');
 
-// if (strpos($_SERVER['REQUEST_URI'], 'admin') !== false)
-// {
-//     $active_template = "/admin";
-// }
-// else {
-//     $active_template = '/default';
-// }
-$active_template = '/default';
+if (strpos($_SERVER['REQUEST_URI'], 'admin') !== false)
+{
+    $active_template = "/admin";
+}
+else {
+    $active_template = '/default';
+}
+
 R::set('page', new Paging());
 R::set('router', new Router());
 R::set('templates',  new Template\Engine('themes'.$active_template));

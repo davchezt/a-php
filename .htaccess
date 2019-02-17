@@ -1,9 +1,9 @@
 Options -indexes
 
 <IfModule mod_headers.c>
-   Header set Access-Control-Allow-Origin "*"
-	 Header set Access-Control-Allow-Headers "Authorization, Origin, X-Requested-With, Content-Type, Accept"
-	 Header set Access-Control-Allow-Methods "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Headers "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+    Header set Access-Control-Allow-Methods "GET, POST, PUT, PATCH, DELETE, OPTIONS"
 </IfModule>
 
 <IfModule mod_rewrite.c>
@@ -21,7 +21,6 @@ Options -indexes
 	#Don't rewrite files so that we can still load CSS, etc.
 	RewriteCond %{REQUEST_FILENAME} -f
 	RewriteRule .* - [S=5]
-
 </IfModule>
 
 <IfModule !mod_rewrite.c>
